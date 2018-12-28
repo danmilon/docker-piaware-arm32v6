@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+cd /usr/lib/piaware
+exec tclsh main.tcl $@

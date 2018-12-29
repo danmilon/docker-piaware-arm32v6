@@ -23,6 +23,8 @@ RUN \
   apk add \
     --no-cache \
     make \
+    python3 \
+    python3-dev \
     ca-certificates \
     gcc \
     musl-dev \
@@ -32,12 +34,17 @@ RUN \
   mkdir -p /usr/lib/piaware && \
   cp -r /build/piaware-3.6.3/programs/piaware/*.tcl /usr/lib/piaware/ && \
   mkdir -p /usr/lib/piaware/helpers/ && \
+  wget https://github.com/mutability/mlat-client/archive/v0.2.10.tar.gz -O - \
+    | tar -xzC /build/ && \
+  (cd /build/mlat-client-0.2.10 && pip3 install .) && \
+  ln -s /usr/bin/fa-mlat-client /usr/lib/piaware/helpers/ && \
   apk del \
     --no-cache \
     --rdepends \
     make \
     gcc \
-    musl-dev && \
+    musl-dev \
+    python3-dev && \
   rm -rf \
     /build \
     /usr/bin/qemu-arm-static

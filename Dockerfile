@@ -54,3 +54,4 @@ RUN \
     ncurses-dev
 
 COPY piaware /usr/bin/
+CMD ["piaware", "-plainlog"]

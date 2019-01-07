@@ -48,6 +48,7 @@ RUN \
     musl-dev \
     python3-dev && \
   rm -rf \
+    ~/.cache/pip \
     /build \
     /usr/bin/qemu-arm-static
 

@@ -36,7 +36,9 @@ RUN \
   mkdir -p /usr/lib/piaware/helpers/ && \
   wget https://github.com/mutability/mlat-client/archive/v0.2.10.tar.gz -O - \
     | tar -xzC /build/ && \
-  (cd /build/mlat-client-0.2.10 && pip3 install .) && \
+  pip3 \
+    install \
+    /build/mlat-client-0.2.10 && \
   ln -s /usr/bin/fa-mlat-client /usr/lib/piaware/helpers/ && \
   apk del \
     --no-cache \

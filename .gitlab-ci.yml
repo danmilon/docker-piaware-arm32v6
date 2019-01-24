@@ -1,0 +1,14 @@
+image: docker:stable
+stages:
+  - build
+
+build docker image:
+  stage: build
+  services:
+    - docker:dind
+  script:
+    - wget https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-arm.tar.gz -O - | tar zxvf - -C . && mv qemu-3.0.0+resin-arm/qemu-arm-static .
+    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+    - docker build -t "$CI_REGISTRY_USER/$CI_REGISTRY_IMAGE:latest" .
+    - echo -n "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin
+    - docker push "$CI_REGISTRY_USER/$CI_REGISTRY_IMAGE:latest"
